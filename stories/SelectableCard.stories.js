@@ -173,7 +173,7 @@ const OnboardingTemplate = () => {
   `;
   
   const subtitle = document.createElement('p');
-  subtitle.textContent = 'Choose as many options as you'd like';
+  subtitle.textContent = 'Choose as many options as you\'d like';
   subtitle.style.cssText = `
     font-size: 16px;
     color: rgba(1, 12, 20, 0.7);

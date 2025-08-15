@@ -79,7 +79,7 @@ export const createOnboardingScreen = ({
   `;
 
   const subtitle = document.createElement('p');
-  subtitle.textContent = 'Choose as many options as you'd like';
+  subtitle.textContent = 'Choose as many options as you\'d like';
   subtitle.style.cssText = `
     font-size: 16px;
     line-height: 1.5;
