@@ -19,7 +19,16 @@ export default {
       control: 'text',
       description: 'Description text explaining the recommendation',
     },
-    icon: createIconControl(),
+    icon: {
+      control: 'select',
+      options: [
+        'waving_hand', 'campaign', 'email', 'send', 'analytics', 'trending_up', 'person_add', 
+        'favorite', 'star', 'home', 'search', 'settings', 'notifications', 'cake', 'shopping_cart',
+        'refresh', 'schedule', 'thumb_up', 'share', 'edit', 'delete', 'add', 'check_circle',
+        'info', 'warning', 'error', 'help', 'account_circle', 'business', 'work', 'group'
+      ],
+      description: 'Material icon name - select from common options or type any Material icon name'
+    },
     iconType: {
       control: 'select',
       options: ['material-icons', 'material-symbols-outlined', 'material-symbols-rounded'],
@@ -53,25 +62,6 @@ export const Default = {
   render: (args) => createRecommendationTile(args),
 };
 
-export const Selected = {
-  args: {
-    title: 'New customers',
-    description: 'Sends an email to customers after their first transaction welcoming them to the business.',
-    icon: 'waving_hand',
-    selected: true,
-  },
-  render: (args) => createRecommendationTile(args),
-};
-
-export const Disabled = {
-  args: {
-    title: 'Premium feature',
-    description: 'This recommendation requires a premium subscription to activate.',
-    icon: 'lock',
-    disabled: true,
-  },
-  render: (args) => createRecommendationTile(args),
-};
 
 export const DifferentIcons = {
   render: () => {
@@ -132,94 +122,6 @@ export const DifferentIcons = {
   },
 };
 
-export const InteractiveTiles = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.padding = '20px';
-    container.style.maxWidth = '500px';
-    
-    const title = document.createElement('h3');
-    title.textContent = 'Campaign Recommendations';
-    title.style.marginBottom = '16px';
-    title.style.color = '#085282';
-    container.appendChild(title);
-    
-    const description = document.createElement('p');
-    description.textContent = 'Click on tiles to select your preferred campaign strategies:';
-    description.style.marginBottom = '24px';
-    description.style.color = 'rgba(1, 12, 20, 0.7)';
-    container.appendChild(description);
-    
-    const tiles = [
-      {
-        title: 'Customer retention',
-        description: 'Keep existing customers engaged with personalized content and offers.',
-        icon: 'favorite',
-        iconColor: '#E91E63',
-      },
-      {
-        title: 'Lead nurturing',
-        description: 'Convert prospects into customers with targeted email sequences.',
-        icon: 'trending_up',
-        iconColor: '#2196F3',
-      },
-      {
-        title: 'Product launches',
-        description: 'Generate excitement and drive sales for new product releases.',
-        icon: 'rocket_launch',
-        iconColor: '#FF9800',
-      },
-    ];
-    
-    let selectedTiles = new Set();
-    
-    tiles.forEach((tileConfig, index) => {
-      const tile = createRecommendationTile({
-        ...tileConfig,
-        selected: selectedTiles.has(index),
-        onClick: () => {
-          if (selectedTiles.has(index)) {
-            selectedTiles.delete(index);
-          } else {
-            selectedTiles.add(index);
-          }
-          
-          // Update tile appearance
-          const newTile = createRecommendationTile({
-            ...tileConfig,
-            selected: selectedTiles.has(index),
-            onClick: () => {
-              if (selectedTiles.has(index)) {
-                selectedTiles.delete(index);
-              } else {
-                selectedTiles.add(index);
-              }
-              // Refresh the entire container
-              container.replaceChild(
-                InteractiveTiles.render(), 
-                container
-              );
-            },
-          });
-          
-          tile.parentNode.replaceChild(newTile, tile);
-          console.log('Selected tiles:', Array.from(selectedTiles).map(i => tiles[i].title));
-        },
-      });
-      
-      container.appendChild(tile);
-    });
-    
-    return container;
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Interactive tiles that can be selected and deselected by clicking.',
-      },
-    },
-  },
-};
 
 export const TileGrid = {
   render: () => {
@@ -294,77 +196,3 @@ export const TileGrid = {
   },
 };
 
-export const CampaignGoals = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.padding = '20px';
-    container.style.maxWidth = '500px';
-    
-    const header = document.createElement('div');
-    header.style.marginBottom = '24px';
-    
-    const title = document.createElement('h2');
-    title.textContent = 'What\'s your main goal?';
-    title.style.margin = '0 0 8px 0';
-    title.style.color = '#085282';
-    title.style.fontSize = '24px';
-    title.style.fontWeight = '700';
-    header.appendChild(title);
-    
-    const subtitle = document.createElement('p');
-    subtitle.textContent = 'Select the primary objective for your campaign to get personalized recommendations.';
-    subtitle.style.margin = '0';
-    subtitle.style.color = 'rgba(1, 12, 20, 0.7)';
-    subtitle.style.fontSize = '16px';
-    header.appendChild(subtitle);
-    
-    container.appendChild(header);
-    
-    const goals = [
-      {
-        title: 'Increase sales',
-        description: 'Drive more conversions and boost revenue with targeted product promotions.',
-        icon: 'trending_up',
-        iconColor: '#388E3C',
-      },
-      {
-        title: 'Build awareness',
-        description: 'Expand your reach and introduce your brand to new potential customers.',
-        icon: 'visibility',
-        iconColor: '#2196F3',
-      },
-      {
-        title: 'Improve loyalty',
-        description: 'Strengthen relationships with existing customers through personalized experiences.',
-        icon: 'favorite',
-        iconColor: '#E91E63',
-      },
-      {
-        title: 'Collect feedback',
-        description: 'Gather valuable insights from customers to improve your products and services.',
-        icon: 'chat_bubble',
-        iconColor: '#FF9800',
-      },
-    ];
-    
-    goals.forEach(goalConfig => {
-      const tile = createRecommendationTile({
-        ...goalConfig,
-        onClick: () => {
-          console.log(`Selected goal: ${goalConfig.title}`);
-          // Here you would typically navigate to the next step
-        },
-      });
-      container.appendChild(tile);
-    });
-    
-    return container;
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Campaign goal selection interface using recommendation tiles.',
-      },
-    },
-  },
-};
