@@ -1,4 +1,5 @@
 import { createRecommendationTile, createRecommendationTileGrid } from './RecommendationTile.js';
+import { createIconControl } from '../.storybook/iconControl.js';
 
 export default {
   title: 'Custom Components/Recommendation Tile',
@@ -18,10 +19,7 @@ export default {
       control: 'text',
       description: 'Description text explaining the recommendation',
     },
-    icon: {
-      control: 'text',
-      description: 'Material icon name for the recommendation',
-    },
+    icon: createIconControl(),
     iconType: {
       control: 'select',
       options: ['material-icons', 'material-symbols-outlined', 'material-symbols-rounded'],

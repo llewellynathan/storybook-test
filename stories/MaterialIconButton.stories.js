@@ -1,4 +1,5 @@
 import { createMaterialIconButton } from './MaterialIconButton.js';
+import { createIconControl } from '../.storybook/iconControl.js';
 
 export default {
   title: 'Material Design/Icon Button',
@@ -10,10 +11,7 @@ export default {
     },
   },
   argTypes: {
-    icon: {
-      control: 'text',
-      description: 'Material icon name',
-    },
+    icon: createIconControl(),
     size: {
       control: { type: 'select' },
       options: ['small', 'standard', 'large'],
