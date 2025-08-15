@@ -1,4 +1,4 @@
-name: Deploy Storybook to GitHub Pages
+name: Build and Deploy Storybook
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  build-storybook:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -36,14 +36,36 @@ jobs:
     - name: Build Storybook
       run: npm run build-storybook
 
+    - name: Upload Storybook build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: storybook-static
+        path: storybook-static/
+        retention-days: 30
+
+    # Only deploy to Pages if the repository has Pages enabled
+    - name: Check if Pages is available
+      id: pages-check
+      run: |
+        if curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+           "https://api.github.com/repos/${{ github.repository }}/pages" | grep -q '"status":"built"'; then
+          echo "pages-available=true" >> $GITHUB_OUTPUT
+        else
+          echo "pages-available=false" >> $GITHUB_OUTPUT
+          echo "GitHub Pages not configured for this repository"
+        fi
+
     - name: Setup Pages
+      if: steps.pages-check.outputs.pages-available == 'true'
       uses: actions/configure-pages@v4
 
-    - name: Upload artifact
+    - name: Upload Pages artifact
+      if: steps.pages-check.outputs.pages-available == 'true'
       uses: actions/upload-pages-artifact@v3
       with:
         path: storybook-static
 
     - name: Deploy to GitHub Pages
+      if: steps.pages-check.outputs.pages-available == 'true'
       id: deployment
       uses: actions/deploy-pages@v4
