@@ -1,5 +1,4 @@
 // Custom icon picker control for Storybook
-import { useState, useEffect } from '@storybook/preview-api';
 
 // Popular Material Icons for quick selection
 const POPULAR_ICONS = [
@@ -380,13 +379,13 @@ export const createIconControl = () => {
   return {
     control: {
       type: 'select',
-      options: ALL_ICONS,
+      options: [...POPULAR_ICONS, ...CAMPAIGN_ICONS].slice(0, 100), // Limit to 100 most useful icons
     },
-    description: 'Material icon name',
+    description: 'Material icon name - select from popular options or use Icon Browser story for full catalog',
     table: {
       type: { 
         summary: 'string',
-        detail: 'Any Material Icons or Material Symbols icon name'
+        detail: 'Popular Material Icons and Campaign icons. Use Icon Browser story to find more icons.'
       },
     },
   };
