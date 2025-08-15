@@ -25,9 +25,13 @@
         <div class="mdc-top-app-bar__row">
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" aria-label="Open navigation menu">menu</button>
-                <span class="mdc-top-app-bar__title">Cinch</span>
+                <img src="images/cinch-logo.svg" alt="Cinch" style="height: 24px; margin-left: 8px; filter: brightness(0) invert(1);" />
             </section>
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+                <button class="mdc-button mdc-button--outlined" onclick="window.location.href='signup.html?mode=email'" style="margin-right: 8px; color: white; border-color: white;">
+                    <span class="mdc-button__ripple"></span>
+                    <span class="mdc-button__label">Sign Up</span>
+                </button>
                 <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">search</button>
                 <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="More options">more_vert</button>
             </section>
@@ -37,7 +41,7 @@
     <!-- Navigation Drawer -->
     <aside class="mdc-drawer mdc-drawer--modal">
         <div class="mdc-drawer__header">
-            <h3 class="mdc-drawer__title">Cinch</h3>
+            <img src="images/cinch-logo.svg" alt="Cinch" style="height: 30px; margin-bottom: 8px;" />
             <h6 class="mdc-drawer__subtitle">Navigation</h6>
         </div>
         <div class="mdc-drawer__content">
@@ -85,7 +89,7 @@
                     </div>
                     <div class="mdc-card__actions">
                         <div class="mdc-card__action-buttons">
-                            <button class="mdc-button mdc-card__action mdc-card__action--button">
+                            <button class="mdc-button mdc-card__action mdc-card__action--button" onclick="window.location.href='signup.html?mode=email'">
                                 <div class="mdc-button__ripple"></div>
                                 <span class="mdc-button__label">Get Started</span>
                             </button>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Selection - Cinch Onboarding</title>
+    
+    <!-- Material Design CSS -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Roboto Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #F1F3F4;
+            padding: 20px;
+        }
+        
+        .onboarding-container {
+            background: white;
+            border-radius: 16px;
+            padding: 32px 40px 40px;
+            width: 928px;
+            max-width: 100%;
+            box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 
+                        0px 16px 24px 2px rgba(0, 0, 0, 0.14), 
+                        0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+        
+        .header-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .logo-container img {
+            height: 30px;
+            width: auto;
+        }
+        
+        .title-section {
+            text-align: center;
+        }
+        
+        .title-section h1 {
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.286;
+            color: #010C14;
+            font-family: 'Roboto', 'NexaText', sans-serif;
+        }
+        
+        .content-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+        }
+        
+        .select-container {
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .custom-select {
+            position: relative;
+            width: 100%;
+        }
+        
+        .select-field {
+            width: 100%;
+            padding: 16px 12px;
+            border: 1px solid rgba(0, 0, 0, 0.23);
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.5;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            transition: border-color 0.2s;
+        }
+        
+        .select-field:hover {
+            border-color: rgba(0, 0, 0, 0.54);
+        }
+        
+        .select-field:focus {
+            outline: none;
+            border-color: #0994F2;
+            border-width: 2px;
+            padding: 15px 11px;
+        }
+        
+        .select-field.has-value {
+            padding-top: 20px;
+            padding-bottom: 12px;
+        }
+        
+        .select-label {
+            position: absolute;
+            top: -8px;
+            left: 12px;
+            background: white;
+            padding: 0 4px;
+            font-size: 12px;
+            color: rgba(1, 12, 20, 0.7);
+            font-family: 'Roboto', 'NexaText', sans-serif;
+        }
+        
+        .select-placeholder {
+            color: rgba(1, 12, 20, 0.7);
+            font-family: 'Roboto', 'NexaText', sans-serif;
+        }
+        
+        .select-value {
+            color: #010C14;
+            font-family: 'Roboto', 'NexaText', sans-serif;
+        }
+        
+        .dropdown-arrow {
+            width: 24px;
+            height: 24px;
+            color: #596873;
+            transition: transform 0.2s;
+        }
+        
+        .dropdown-arrow.open {
+            transform: rotate(180deg);
+        }
+        
+        .select-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.23);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 4px;
+            display: none;
+        }
+        
+        .select-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #010C14;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            font-family: 'Roboto', 'NexaText', sans-serif;
+        }
+        
+        .select-option:hover {
+            background: rgba(9, 148, 242, 0.08);
+        }
+        
+        .select-option:last-child {
+            border-bottom: none;
+        }
+        
+        .info-box {
+            background: #F1F3F4;
+            border-radius: 8px;
+            padding: 16px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 16px;
+        }
+        
+        .info-box p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: rgba(1, 12, 20, 0.7);
+            text-align: center;
+            font-family: 'Roboto', 'NexaText', sans-serif;
+        }
+        
+        .button-section {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .skip-button {
+            background: none;
+            border: none;
+            color: #455159;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1.25px;
+            text-transform: uppercase;
+            padding: 0 12px;
+            height: 40px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-radius: 4px;
+            font-family: 'Roboto', 'NexaText', sans-serif;
+        }
+        
+        .skip-button:hover {
+            background: rgba(69, 81, 89, 0.08);
+        }
+        
+        .next-button {
+            background: #0994F2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0 16px;
+            height: 40px;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1.25px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 
+                        0px 2px 2px 0px rgba(0, 0, 0, 0.14), 
+                        0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+            transition: all 0.2s;
+            min-width: 100px;
+            font-family: 'Roboto', 'NexaText', sans-serif;
+        }
+        
+        .next-button:hover {
+            background: #0882d4;
+            box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.2), 
+                        0px 4px 5px 0px rgba(0, 0, 0, 0.14), 
+                        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+        }
+        
+        @media (max-width: 768px) {
+            .onboarding-container {
+                padding: 24px 20px;
+            }
+            
+            .button-section {
+                flex-direction: column-reverse;
+            }
+            
+            .skip-button,
+            .next-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="onboarding-container">
+        <div class="header-section">
+            <div class="logo-container">
+                <img src="images/cinch-logo.svg" alt="Cinch Logo" />
+            </div>
+            
+            <div class="title-section">
+                <h1>Please select your point of sales system</h1>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <div class="select-container">
+                <div class="custom-select">
+                    <div class="select-field" id="posSelect" tabindex="0">
+                        <span class="select-label">Point of sales system...</span>
+                        <span class="select-placeholder" id="selectText">Select your POS system</span>
+                        <span class="material-icons dropdown-arrow" id="dropdownArrow">arrow_drop_down</span>
+                    </div>
+                    <div class="select-dropdown" id="selectDropdown">
+                        <!-- Options will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-box" id="infoBox" style="display: none;">
+                <p id="infoText">Your POS may require some setup outside of Cinch. If so, you'll see instructions for what to do here.</p>
+            </div>
+        </div>
+        
+        <div class="button-section">
+            <button class="skip-button" onclick="skipStep()">Skip</button>
+            <button class="next-button" id="nextButton" onclick="proceedToNext()">Next</button>
+        </div>
+    </div>
+    
+    <script>
+        // POS system options
+        const posOptions = [
+            { value: 'square', label: 'Square' },
+            { value: 'pestroutes', label: 'PestRoutes' },
+            { value: 'jobber', label: 'Jobber' },
+            { value: 'servicetitan', label: 'ServiceTitan' },
+            { value: 'housecallpro', label: 'Housecall Pro' },
+            { value: 'fieldedge', label: 'FieldEdge' },
+            { value: 'workiz', label: 'Workiz' },
+            { value: 'synchroteam', label: 'Synchroteam' },
+            { value: 'other', label: 'Other' },
+            { value: 'none', label: 'None / I don\'t use a POS system' }
+        ];
+        
+        let selectedPos = null;
+        let isDropdownOpen = false;
+        
+        // Initialize the page
+        function initializePage() {
+            populateDropdown();
+            setupEventListeners();
+        }
+        
+        // Populate dropdown options
+        function populateDropdown() {
+            const dropdown = document.getElementById('selectDropdown');
+            dropdown.innerHTML = '';
+            
+            posOptions.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'select-option';
+                optionElement.textContent = option.label;
+                optionElement.setAttribute('data-value', option.value);
+                
+                optionElement.addEventListener('click', () => {
+                    selectOption(option.value, option.label);
+                });
+                
+                dropdown.appendChild(optionElement);
+            });
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            const selectField = document.getElementById('posSelect');
+            const dropdownArrow = document.getElementById('dropdownArrow');
+            
+            selectField.addEventListener('click', toggleDropdown);
+            selectField.addEventListener('keydown', handleKeyDown);
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!selectField.contains(e.target) && !document.getElementById('selectDropdown').contains(e.target)) {
+                    closeDropdown();
+                }
+            });
+        }
+        
+        // Toggle dropdown
+        function toggleDropdown() {
+            isDropdownOpen = !isDropdownOpen;
+            const dropdown = document.getElementById('selectDropdown');
+            const arrow = document.getElementById('dropdownArrow');
+            
+            if (isDropdownOpen) {
+                dropdown.style.display = 'block';
+                arrow.classList.add('open');
+            } else {
+                dropdown.style.display = 'none';
+                arrow.classList.remove('open');
+            }
+        }
+        
+        // Close dropdown
+        function closeDropdown() {
+            isDropdownOpen = false;
+            document.getElementById('selectDropdown').style.display = 'none';
+            document.getElementById('dropdownArrow').classList.remove('open');
+        }
+        
+        // Handle keyboard navigation
+        function handleKeyDown(e) {
+            if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                toggleDropdown();
+            } else if (e.key === 'Escape') {
+                closeDropdown();
+            }
+        }
+        
+        // Select an option
+        function selectOption(value, label) {
+            selectedPos = value;
+            const selectText = document.getElementById('selectText');
+            const selectField = document.getElementById('posSelect');
+            
+            selectText.textContent = label;
+            selectText.className = 'select-value';
+            selectField.classList.add('has-value');
+            
+            closeDropdown();
+            showInfoBox();
+            updateNextButton();
+        }
+        
+        // Show info box after selection
+        function showInfoBox() {
+            const infoBox = document.getElementById('infoBox');
+            const infoText = document.getElementById('infoText');
+            
+            if (selectedPos && selectedPos !== 'none') {
+                let message = '';
+                switch (selectedPos) {
+                    case 'pestroutes':
+                        message = 'PestRoutes integration requires API access. You\'ll need to enable API access in your PestRoutes settings and provide your API credentials.';
+                        break;
+                    case 'servicetitan':
+                        message = 'ServiceTitan integration requires app installation. You\'ll need to install the Cinch app from the ServiceTitan marketplace.';
+                        break;
+                    case 'square':
+                        message = 'Square integration can be set up automatically. You\'ll be able to connect your Square account in the next step.';
+                        break;
+                    case 'other':
+                        message = 'For custom POS integrations, our team will work with you to set up the connection. Contact support for assistance.';
+                        break;
+                    default:
+                        message = 'Your POS may require some setup outside of Cinch. If so, you\'ll see instructions for what to do here.';
+                }
+                infoText.textContent = message;
+                infoBox.style.display = 'block';
+            } else {
+                infoBox.style.display = 'none';
+            }
+        }
+        
+        // Update next button state
+        function updateNextButton() {
+            const nextButton = document.getElementById('nextButton');
+            // Enable next button regardless of selection
+            nextButton.disabled = false;
+        }
+        
+        // Skip this step
+        function skipStep() {
+            console.log('Skipping POS selection');
+            // Save skip preference
+            localStorage.setItem('posSystemSkipped', 'true');
+            // Redirect to main app or next step
+            window.location.href = 'index.html';
+        }
+        
+        // Proceed to next step
+        function proceedToNext() {
+            console.log('Selected POS:', selectedPos);
+            
+            if (selectedPos) {
+                // Save selected POS
+                localStorage.setItem('selectedPOS', selectedPos);
+                localStorage.setItem('posSetupRequired', selectedPos !== 'none' && selectedPos !== 'square');
+            }
+            
+            // For now, redirect to main app
+            // In a real app, this might go to POS setup instructions or next onboarding step
+            if (selectedPos && selectedPos !== 'none' && selectedPos !== 'square') {
+                alert('Great! We\'ll help you set up your POS integration. Redirecting to your dashboard...');
+            } else {
+                alert('Perfect! Your Cinch workspace is ready. Redirecting to your dashboard...');
+            }
+            
+            window.location.href = 'index.html';
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initializePage);
+    </script>
+</body>
+</html>

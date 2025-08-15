@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Cinch</title>
+    
+    <!-- Material Design CSS -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Roboto Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #F1F3F4;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .wave-1 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+        }
+        
+        .wave-2 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+        }
+        
+        .logo-section {
+            position: absolute;
+            top: 80px;
+            z-index: 10;
+        }
+        
+        .logo-section img {
+            height: 30px;
+            width: auto;
+        }
+        
+        .signup-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px 24px 40px;
+            width: 444px;
+            max-width: calc(100% - 40px);
+            box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 
+                        0px 16px 24px 2px rgba(0, 0, 0, 0.14), 
+                        0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header-section {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .header-section h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0 0 4px 0;
+            color: #010C14;
+            line-height: 1.286;
+        }
+        
+        .header-section p {
+            font-size: 16px;
+            color: rgba(1, 12, 20, 0.7);
+            margin: 0;
+            line-height: 1.5;
+            letter-spacing: 0.15px;
+        }
+        
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .description {
+            font-size: 16px;
+            color: #010C14;
+            text-align: center;
+            margin: 0 0 12px 0;
+        }
+        
+        .fields-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .mdc-text-field {
+            width: 100%;
+        }
+        
+        .button-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin-top: 36px;
+        }
+        
+        .submit-button {
+            width: 100%;
+            background-color: #0994F2 !important;
+            color: white;
+            height: 40px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.25px;
+            border-radius: 8px;
+        }
+        
+        .sign-in-link {
+            background: none;
+            border: none;
+            color: #010C14;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 8px;
+            font-family: 'Roboto', sans-serif;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        
+        .sign-in-link:hover {
+            opacity: 0.7;
+        }
+        
+        .error-message {
+            color: #B00020;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        @media (max-width: 480px) {
+            .signup-card {
+                padding: 24px 16px 32px;
+            }
+            
+            .logo-section {
+                top: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background decoration -->
+    <div class="bg-decoration">
+        <img src="images/Wave 2.svg" alt="" class="wave-2" />
+        <img src="images/Wave 1.svg" alt="" class="wave-1" />
+    </div>
+    
+    <!-- Logo -->
+    <div class="logo-section">
+        <img src="images/cinch-logo.svg" alt="Cinch Logo" />
+    </div>
+    
+    <!-- Signup Card -->
+    <div class="signup-card">
+        <div class="header-section">
+            <h1>Get started with Cinch</h1>
+            <p>Automating your marketing is a cinch</p>
+        </div>
+        
+        <form id="signupForm" class="form-section">
+            <p class="description" id="formDescription">Create a password to secure your account.</p>
+            
+            <div class="fields-container">
+                <!-- Email Field -->
+                <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--disabled" id="emailField">
+                    <span class="mdc-text-field__ripple"></span>
+                    <input class="mdc-text-field__input" type="email" id="email" value="name@email.com" disabled required>
+                    <span class="mdc-notched-outline">
+                        <span class="mdc-notched-outline__leading"></span>
+                        <span class="mdc-notched-outline__notch">
+                            <span class="mdc-floating-label" id="email-label">Email *</span>
+                        </span>
+                        <span class="mdc-notched-outline__trailing"></span>
+                    </span>
+                </label>
+                <div class="error-message" id="emailError"></div>
+                
+                <!-- Password Field -->
+                <label class="mdc-text-field mdc-text-field--outlined" id="passwordField">
+                    <span class="mdc-text-field__ripple"></span>
+                    <input class="mdc-text-field__input" type="password" id="password" required minlength="8">
+                    <span class="mdc-notched-outline">
+                        <span class="mdc-notched-outline__leading"></span>
+                        <span class="mdc-notched-outline__notch">
+                            <span class="mdc-floating-label" id="password-label">Password *</span>
+                        </span>
+                        <span class="mdc-notched-outline__trailing"></span>
+                    </span>
+                </label>
+                <div class="error-message" id="passwordError"></div>
+            </div>
+            
+            <div class="button-section">
+                <button type="submit" class="mdc-button mdc-button--raised submit-button">
+                    <span class="mdc-button__ripple"></span>
+                    <span class="mdc-button__label">Get Started</span>
+                </button>
+                
+                <a href="index.html" class="sign-in-link">Already have an account? Sign in</a>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Material Design JavaScript -->
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    
+    <script>
+        // Initialize Material Design components
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize text fields
+            const emailTextField = new mdc.textField.MDCTextField(document.getElementById('emailField'));
+            const passwordTextField = new mdc.textField.MDCTextField(document.getElementById('passwordField'));
+            
+            // Initialize button ripple
+            const buttons = document.querySelectorAll('.mdc-button');
+            buttons.forEach(button => {
+                new mdc.ripple.MDCRipple(button);
+            });
+            
+            // Get URL parameters to check if we're in email entry mode
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode');
+            const emailParam = urlParams.get('email');
+            
+            if (mode === 'email') {
+                // Email entry mode
+                document.getElementById('formDescription').textContent = 'Enter your email to get started.';
+                document.getElementById('email').disabled = false;
+                document.getElementById('email').value = '';
+                document.getElementById('emailField').classList.remove('mdc-text-field--disabled');
+                document.getElementById('passwordField').style.display = 'none';
+                document.getElementById('passwordError').style.display = 'none';
+            } else if (emailParam) {
+                // Set email from parameter
+                document.getElementById('email').value = decodeURIComponent(emailParam);
+            }
+            
+            // Handle form submission
+            document.getElementById('signupForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Clear previous errors
+                document.querySelectorAll('.error-message').forEach(msg => {
+                    msg.textContent = '';
+                    msg.classList.remove('show');
+                });
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const isEmailMode = mode === 'email';
+                
+                let hasError = false;
+                
+                // Validate email
+                if (!email || !email.includes('@')) {
+                    document.getElementById('emailError').textContent = 'Please enter a valid email address';
+                    document.getElementById('emailError').classList.add('show');
+                    hasError = true;
+                }
+                
+                // Validate password (only in password mode)
+                if (!isEmailMode) {
+                    if (!password || password.length < 8) {
+                        document.getElementById('passwordError').textContent = 'Password must be at least 8 characters';
+                        document.getElementById('passwordError').classList.add('show');
+                        hasError = true;
+                    }
+                }
+                
+                if (!hasError) {
+                    if (isEmailMode) {
+                        // Redirect to password creation with email
+                        window.location.href = `signup.html?email=${encodeURIComponent(email)}`;
+                    } else {
+                        // Complete signup - redirect to onboarding
+                        console.log('Signup successful!', { email, password });
+                        
+                        // Extract name from email for personalization (before @ symbol)
+                        const name = email.split('@')[0].replace(/[._-]/g, ' ');
+                        const formattedName = name.charAt(0).toUpperCase() + name.slice(1);
+                        
+                        // Save user info
+                        localStorage.setItem('userEmail', email);
+                        localStorage.setItem('userName', formattedName);
+                        localStorage.setItem('signupCompleted', 'true');
+                        
+                        // Redirect to onboarding
+                        window.location.href = `onboarding.html?name=${encodeURIComponent(formattedName)}`;
+                    }
+                }
+            });
+            
+            // Auto-focus password field if in password mode
+            if (mode !== 'email') {
+                document.getElementById('password').focus();
+            } else {
+                document.getElementById('email').focus();
+            }
+        });
+    </script>
+</body>
+</html>
